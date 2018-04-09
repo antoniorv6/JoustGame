@@ -42,6 +42,7 @@ namespace Anto
             void Flapea(int rep);
             void Morir();
             void Respawn();
+            int GetPunctuation();
     
         private:
             EstructuraJuegoData _datos;
@@ -63,6 +64,7 @@ namespace Anto
             sf::Clock _flap_timer;
             sf::Clock _appearanim;
             sf::Sprite _aparicion; 
+            int punctuation;
             
     };
 }

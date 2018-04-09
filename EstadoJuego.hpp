@@ -37,6 +37,10 @@ namespace Anto {
                 void SpawnEnemigo(int tipo, int plat);
                 int Joust(sf::Sprite jugador, sf::Sprite enemigo);
                 
+                void SetJoustText();
+                
+                void UpdateText();
+                
                 void NuevaRonda();
 
 	private:
@@ -55,6 +59,14 @@ namespace Anto {
                 int spawneador;
                 int ronda;
                 bool nuevaronda;
+                
+                int punctuation;
+                sf::Text t_punctuation;
+                sf::Text t_lives;
+                sf::Text prepareToJoust;
+                sf::Clock disclaimer;
+                bool started;
+                
                 
 	};
 }

@@ -32,6 +32,7 @@ namespace Anto
                 _framesAnimacion.push_back(sf::IntRect(368, 38, 16, 20));
                 _framesMuerte.push_back(sf::IntRect(217, 11, 16, 20));
                 _framesMuerte.push_back(sf::IntRect(239, 16, 16, 8));
+                punctuation = 100;
                 
             break;
             case ENEMY_PALLADIN:
@@ -43,6 +44,7 @@ namespace Anto
                  _framesAnimacion.push_back(sf::IntRect(368, 72, 16, 20));
                  _framesMuerte.push_back(sf::IntRect(217, 11, 16, 20));
                  _framesMuerte.push_back(sf::IntRect(239, 16, 16, 8));
+                 punctuation = 200;
             break;
                 
         }
@@ -408,6 +410,11 @@ namespace Anto
     {
         _enemyState = PLAYER_STATE_DEAD;
         _spriteprinc.setTextureRect(_framesMuerte.at(1));
+    }
+    
+    int Enemy::GetPunctuation()
+    {
+        return punctuation;
     }
 }
 

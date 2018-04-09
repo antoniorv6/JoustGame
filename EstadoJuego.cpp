@@ -15,6 +15,7 @@
 #include "EstadoJuego.hpp"
 #include "DEFINICIONES.hpp"
 #include <iostream>
+#include <string>
 namespace Anto
 {
 	EstadoJuego::EstadoJuego(EstructuraJuegoData datos) : _datos(datos)
@@ -27,12 +28,36 @@ namespace Anto
 		_datos->g_assets.CargaTextura("Personajes", PATH_SPRITE);
                 _datos->g_assets.CargaTextura("Plataformas", PATH_PLATFORMS);
                 _datos->g_assets.CargaTextura("Plataforma_lisa", PATH_PLATFORMS_1);
+                _datos->g_assets.CargaFuente("Punctuation", PUNCTUATION_FONT);
                 _jugador = new Player(_datos);
                 _plataformas = new Plataforma(_datos);
                 iterador = 0;
                 ronda = 0;
                 spawneador = 0;
                 nuevaronda = true;
+                punctuation = 0;
+                
+                t_punctuation.setFont(_datos->g_assets.GetFuente("Punctuation"));
+                t_punctuation.setString(std::to_string(punctuation));
+                t_punctuation.setCharacterSize(12);
+                t_punctuation.setOrigin(t_punctuation.getGlobalBounds().width/2, t_punctuation.getGlobalBounds().height/2);
+                t_punctuation.setPosition(470,672);
+                
+                t_lives.setFont(_datos->g_assets.GetFuente("Punctuation"));
+                t_lives.setString(std::to_string(_jugador->GetLives()));
+                t_lives.setCharacterSize(12);
+                t_lives.setOrigin(t_lives.getGlobalBounds().width/2, t_lives.getGlobalBounds().height/2);
+                t_lives.setPosition(780,672);
+                
+                prepareToJoust.setFont(_datos->g_assets.GetFuente("Punctuation"));
+                this->SetJoustText();
+                prepareToJoust.setCharacterSize(18);
+                prepareToJoust.setOrigin(prepareToJoust.getGlobalBounds().width/2, prepareToJoust.getGlobalBounds().height/2);
+                prepareToJoust.setPosition(620,300);
+                
+                started = false;
+                disclaimer.restart();
+                
 	}
 
 	void EstadoJuego::HandleInput()
@@ -73,10 +98,22 @@ namespace Anto
 
 	void EstadoJuego::Update(float dt)
 	{
-            if(nuevaronda)
+            if(started)
             {
-                this->NuevaRonda();
+                if(nuevaronda)
+                {
+                    this->NuevaRonda();
+                }
             }
+            else
+            {
+                if(disclaimer.getElapsedTime().asSeconds() > DISCLAIMER_TIME)
+                {
+                    started = true;
+                }
+                    
+            }
+            
                             
             if(_jugador->GetActualState() == PLAYER_STATE_MOVING)
             {
@@ -86,6 +123,10 @@ namespace Anto
             if(_jugador->GetActualState() == PLAYER_STATE_DEAD)
             {
                 _jugador->AnimarMuerte(dt);
+                if(_jugador->GetLives() == 0)
+                {
+                    _datos->maquina.NuevoEstado(StateRef (new EstadoJuego (this->_datos)));
+                }
             }
 		_jugador->Update(dt);
             
@@ -132,6 +173,8 @@ namespace Anto
                                 {
                                     case 1:
                                         _enemigos.at(i)->Morir();
+                                         punctuation += _enemigos.at(i)->GetPunctuation();
+                                         this->UpdateText();
                                         _deadEn.restart();
                                     break;
                                 }
@@ -147,6 +190,9 @@ namespace Anto
                 if(_enemigos.size()==0 && !nuevaronda)
                 {
                     nuevaronda = true;
+                    this->SetJoustText();
+                    disclaimer.restart();
+                    started = false;
                     ronda ++;
                     iterador = 0;
                 }
@@ -166,6 +212,12 @@ namespace Anto
                     _enemigos.at(i)->Draw();
                 }
                 _plataformas->Draw();
+                _datos->ventana.draw(t_punctuation);
+                _datos->ventana.draw(t_lives);
+                if(!started)
+                {
+                    _datos->ventana.draw(prepareToJoust);
+                }
 		_datos->ventana.display();
 	}
         
@@ -183,11 +235,14 @@ namespace Anto
             {
                 if(jugador.getPosition().y < enemigo.getPosition().y + 5)
                 {
+                    
                     return 1;
+                    
                 }
                 else if (jugador.getPosition().y > enemigo.getPosition().y + 5)
                 {
                     _jugador->Morir();
+                    t_lives.setString(std::to_string(_jugador->GetLives()));
                 }
                 else
                 {
@@ -223,6 +278,46 @@ namespace Anto
                 nuevaronda = false;
             }
 
+        }
+        
+        void EstadoJuego::UpdateText()
+        {
+            t_punctuation.setString(std::to_string(punctuation));
+        }
+        
+        void EstadoJuego::SetJoustText()
+        {
+            switch(rand()%7)
+                {
+                    case 0:
+                        prepareToJoust.setString("Prepare to joust");
+                    break;
+                    
+                    case 1:
+                        prepareToJoust.setString("Ready to joust them?");
+                    break;
+                    
+                    case 2:
+                        prepareToJoust.setString("This joust will get red hot");
+                    break;
+                    
+                    case 3:
+                        prepareToJoust.setString("For joustice?");
+                    break;
+                    
+                    case 4:
+                        prepareToJoust.setString("Joust in time!");
+                    break;
+                    
+                    case 5:
+                        prepareToJoust.setString("JOUSTICE RAINS FROM ABOVE!");
+                    break;
+                    
+                    case 6:
+                        prepareToJoust.setString("Don't forget to feed your animal");
+                    break;
+                    
+                }
         }
         
 }

@@ -38,6 +38,7 @@ namespace Anto
             void Morir();
             void Respawn();
             bool CheckVida();
+            int GetLives();
     
         private:
             EstructuraJuegoData _datos;

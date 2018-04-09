@@ -302,6 +302,11 @@ namespace Anto
                 return false;
         }
     
+    int Player::GetLives()
+    {
+        return _vida;
+    }
+    
 }
 
  

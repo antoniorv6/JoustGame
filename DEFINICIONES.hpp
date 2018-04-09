@@ -60,3 +60,9 @@
 #define T_FREQ 0.05f
 #define T_AMP 5.0f
 #define PI 3.1416
+
+//Variables del texto
+
+#define PUNCTUATION_FONT "resources/emulogic.ttf"
+
+#define DISCLAIMER_TIME 2.0f
