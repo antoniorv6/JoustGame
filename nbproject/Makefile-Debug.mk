@@ -39,6 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/EstadoJuego.o \
 	${OBJECTDIR}/GestorAssets.o \
 	${OBJECTDIR}/GestorInputs.o \
+	${OBJECTDIR}/Huevo.o \
 	${OBJECTDIR}/Juego.o \
 	${OBJECTDIR}/MaquinaEstados.o \
 	${OBJECTDIR}/Plataforma.o \
@@ -99,6 +100,11 @@ ${OBJECTDIR}/GestorInputs.o: GestorInputs.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/SFML -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/GestorInputs.o GestorInputs.cpp
+
+${OBJECTDIR}/Huevo.o: Huevo.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/SFML -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Huevo.o Huevo.cpp
 
 ${OBJECTDIR}/Juego.o: Juego.cpp
 	${MKDIR} -p ${OBJECTDIR}

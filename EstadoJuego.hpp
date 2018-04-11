@@ -19,6 +19,7 @@
 #include "Player.hpp"
 #include "Enemy.hpp"
 #include "Plataforma.hpp"
+#include "Huevo.hpp"
 #include <vector>
 
 namespace Anto {
@@ -49,6 +50,7 @@ namespace Anto {
                 Player * _jugador;
                 Plataforma * _plataformas;
                 std::vector<Enemy *> _enemigos;
+                std::vector<Huevo *> m_eggs;
                 
                 sf::Clock _decisiones;
                 sf::Clock _flapea;
@@ -66,6 +68,8 @@ namespace Anto {
                 sf::Text prepareToJoust;
                 sf::Clock disclaimer;
                 bool started;
+                
+                
                 
                 
 	};

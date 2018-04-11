@@ -66,3 +66,6 @@
 #define PUNCTUATION_FONT "resources/emulogic.ttf"
 
 #define DISCLAIMER_TIME 2.0f
+
+#define EGG_STATE_FALLING 0
+#define EGG_STATE_PUT 1

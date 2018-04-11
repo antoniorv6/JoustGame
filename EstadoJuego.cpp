@@ -14,6 +14,7 @@
 #include <sstream>
 #include "EstadoJuego.hpp"
 #include "DEFINICIONES.hpp"
+#include "Huevo.hpp"
 #include <iostream>
 #include <string>
 namespace Anto
@@ -114,6 +115,23 @@ namespace Anto
                     
             }
             
+            for(int i=0; i<m_eggs.size(); i++)
+            {
+                m_eggs.at(i)->Colision(_plataformas->GetSprite());
+            }
+            
+            for(int i=0; i<m_eggs.size(); i++)
+            {
+                if(m_eggs.at(i)->ColisionPlayer(_jugador->GetSprite()))
+                {
+                    punctuation+=100;
+                    delete m_eggs.at(i);
+                    m_eggs.erase(m_eggs.begin() + i);
+                }
+            }
+            
+            for(int i=0; i<m_eggs.size(); i++)
+                m_eggs.at(i)->Update(dt);
                             
             if(_jugador->GetActualState() == PLAYER_STATE_MOVING)
             {
@@ -172,6 +190,8 @@ namespace Anto
                                 switch(this->Joust(_jugador->GetSprite(), _enemigos.at(i)->GetSprite()))
                                 {
                                     case 1:
+                                        Huevo * egg = new Huevo(_datos, _enemigos.at(i)->GetSprite().getPosition());
+                                        m_eggs.push_back(egg);
                                         _enemigos.at(i)->Morir();
                                          punctuation += _enemigos.at(i)->GetPunctuation();
                                          this->UpdateText();
@@ -211,6 +231,11 @@ namespace Anto
                 {
                     _enemigos.at(i)->Draw();
                 }
+                
+                for(int i=0; i<m_eggs.size(); i++)
+                {
+                    m_eggs.at(i)->Draw();
+                }
                 _plataformas->Draw();
                 _datos->ventana.draw(t_punctuation);
                 _datos->ventana.draw(t_lives);
@@ -235,7 +260,6 @@ namespace Anto
             {
                 if(jugador.getPosition().y < enemigo.getPosition().y + 5)
                 {
-                    
                     return 1;
                     
                 }
