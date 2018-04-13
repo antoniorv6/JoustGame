@@ -16,6 +16,7 @@
 #include "Juego.hpp"
 #include "DEFINICIONES.hpp"
 #include <vector>
+#include <SFML/Audio.hpp>
 
 namespace Anto
 {
@@ -65,6 +66,8 @@ namespace Anto
             sf::Clock _appearanim;
             sf::Sprite _aparicion; 
             int punctuation;
+            sf::SoundBuffer flap_buffer;
+            sf::Sound flap_sound;
             
     };
 }

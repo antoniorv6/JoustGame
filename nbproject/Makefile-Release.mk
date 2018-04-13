@@ -44,6 +44,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/MaquinaEstados.o \
 	${OBJECTDIR}/Plataforma.o \
 	${OBJECTDIR}/Player.o \
+	${OBJECTDIR}/Terodactile.o \
 	${OBJECTDIR}/main.o
 
 
@@ -115,6 +116,11 @@ ${OBJECTDIR}/Player.o: Player.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Player.o Player.cpp
+
+${OBJECTDIR}/Terodactile.o: Terodactile.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Terodactile.o Terodactile.cpp
 
 ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}

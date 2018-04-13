@@ -14,12 +14,14 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "State.hpp"
 #include "Juego.hpp"
 #include "Player.hpp"
 #include "Enemy.hpp"
 #include "Plataforma.hpp"
 #include "Huevo.hpp"
+#include "Terodactile.hpp"
 #include <vector>
 
 namespace Anto {
@@ -49,6 +51,7 @@ namespace Anto {
                 
                 Player * _jugador;
                 Plataforma * _plataformas;
+                Terodactile * m_terodactile;
                 std::vector<Enemy *> _enemigos;
                 std::vector<Huevo *> m_eggs;
                 
@@ -68,9 +71,15 @@ namespace Anto {
                 sf::Text prepareToJoust;
                 sf::Clock disclaimer;
                 bool started;
+                bool hecho;
                 
+                sf::SoundBuffer eggBuffer;
+                sf::Sound eggSound;
                 
+                sf::SoundBuffer crashSoundBuffer;
+                sf::Sound crashSound;
                 
+                sf::Clock timeAppearTerodactile;
                 
 	};
 }

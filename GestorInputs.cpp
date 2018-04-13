@@ -17,7 +17,7 @@ namespace Anto
 {
     int GestorInputs::TeclaPulsada(sf::Keyboard::Key key)
     {
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
         {
             return 3;
         }

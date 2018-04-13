@@ -7,12 +7,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/home/user/NetBeansProjects/JoustGame/Terodactile.cpp</file>
             <file>file:/home/user/NetBeansProjects/JoustGame/EstadoJuego.cpp</file>
+            <file>file:/home/user/NetBeansProjects/JoustGame/GestorInputs.cpp</file>
             <file>file:/home/user/NetBeansProjects/JoustGame/Huevo.hpp</file>
             <file>file:/home/user/NetBeansProjects/JoustGame/DEFINICIONES.hpp</file>
-            <file>file:/home/user/NetBeansProjects/JoustGame/Huevo.cpp</file>
+            <file>file:/home/user/NetBeansProjects/JoustGame/GestorAssets.cpp</file>
+            <file>file:/home/user/NetBeansProjects/JoustGame/Terodactile.hpp</file>
             <file>file:/home/user/NetBeansProjects/JoustGame/EstadoJuego.hpp</file>
-            <file>file:/home/user/NetBeansProjects/JoustGame/Enemy.cpp</file>
             <file>file:/home/user/NetBeansProjects/JoustGame/Player.cpp</file>
         </group>
     </open-files>

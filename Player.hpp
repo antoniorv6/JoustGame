@@ -13,6 +13,7 @@
 
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "Juego.hpp"
 #include "DEFINICIONES.hpp"
 #include <vector>
@@ -64,6 +65,9 @@ namespace Anto
             sf::Clock _flap_refresh;
             
             sf::Clock _respawnclock;
+            
+            sf::SoundBuffer flapBuffer;
+            sf::Sound flapSound;
     };
 }
 

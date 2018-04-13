@@ -48,6 +48,10 @@ namespace Anto
             break;
                 
         }
+        
+        flap_buffer.loadFromFile(FLAP_SOUND_FILE);
+        flap_sound.setBuffer(flap_buffer);
+        
         switch(plataforma)
         {
             case 1:
@@ -240,6 +244,7 @@ namespace Anto
     void Enemy::Fly()
     {
             _flap_timer.restart();
+            flap_sound.play();
             if(tipo == ENEMY_PALLADIN)
                     {
                         _spriteprinc.setTextureRect(sf::IntRect(241, 72, 16, 13));

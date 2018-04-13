@@ -55,6 +55,10 @@
 
 #define SPAWN_ENEMY 1.0f
 
+#define SPEED_ANIMATION_TERODACTILE 1.0f
+#define TERODACTILE_PERIOD 2.7f
+#define TERODACTILE_AMPLITUDE 0.8f
+
 //Variables para el terodactilo to loco
 
 #define T_FREQ 0.05f
@@ -69,3 +73,16 @@
 
 #define EGG_STATE_FALLING 0
 #define EGG_STATE_PUT 1
+
+
+#define TERODACTILE_NOAPPEAR 0
+#define TERODACTILE_APPEAR 1
+
+
+
+#define FLAP_SOUND_FILE "resources/Flap.wav"
+#define EGG_SOUND_FILE "resources/Egg.wav"
+#define CRASH_SOUND_FILE "resources/Crash.wav"
+#define TERODACTILE_SOUND_FILE "resources/Terodactile.wav"
+
+

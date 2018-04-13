@@ -32,11 +32,19 @@ namespace Anto
                 _datos->g_assets.CargaFuente("Punctuation", PUNCTUATION_FONT);
                 _jugador = new Player(_datos);
                 _plataformas = new Plataforma(_datos);
+                m_terodactile = new Terodactile(_datos);
                 iterador = 0;
                 ronda = 0;
                 spawneador = 0;
                 nuevaronda = true;
                 punctuation = 0;
+                
+                
+                eggBuffer.loadFromFile(EGG_SOUND_FILE);
+                eggSound.setBuffer(eggBuffer);
+                
+                crashSoundBuffer.loadFromFile(CRASH_SOUND_FILE);
+                crashSound.setBuffer(crashSoundBuffer);
                 
                 t_punctuation.setFont(_datos->g_assets.GetFuente("Punctuation"));
                 t_punctuation.setString(std::to_string(punctuation));
@@ -115,16 +123,42 @@ namespace Anto
                     
             }
             
+            if(ronda>=1 && timeAppearTerodactile.getElapsedTime().asSeconds()>5.0f && !hecho)
+            {
+                hecho = true;
+                m_terodactile->Reposition();
+                m_terodactile->ChangeState(TERODACTILE_APPEAR);
+            }
+            if(ronda>=1 && timeAppearTerodactile.getElapsedTime().asSeconds()>22.0f)
+            {
+                std::cout<<"Escondo al terodactilo"<<std::endl;
+                hecho = false;
+                m_terodactile->ChangeState(TERODACTILE_NOAPPEAR);
+                timeAppearTerodactile.restart();
+            }
+            
+            if(m_terodactile->ColisionPlayer(_jugador->GetSprite()) && _jugador->GetActualState()!=PLAYER_STATE_DEAD)
+            {
+                 crashSound.play();
+                 _jugador->Morir();
+                 t_lives.setString(std::to_string(_jugador->GetLives()));
+            }
+                
+            
             for(int i=0; i<m_eggs.size(); i++)
             {
                 m_eggs.at(i)->Colision(_plataformas->GetSprite());
             }
             
+            m_terodactile->Update(dt);
+            
             for(int i=0; i<m_eggs.size(); i++)
             {
                 if(m_eggs.at(i)->ColisionPlayer(_jugador->GetSprite()))
                 {
-                    punctuation+=100;
+                    eggSound.play();
+                    punctuation+=500;
+                    this->UpdateText();
                     delete m_eggs.at(i);
                     m_eggs.erase(m_eggs.begin() + i);
                 }
@@ -205,8 +239,6 @@ namespace Anto
                     
                 }
                 
-                
-                
                 if(_enemigos.size()==0 && !nuevaronda)
                 {
                     nuevaronda = true;
@@ -243,6 +275,7 @@ namespace Anto
                 {
                     _datos->ventana.draw(prepareToJoust);
                 }
+                m_terodactile->Draw();
 		_datos->ventana.display();
 	}
         
@@ -260,11 +293,13 @@ namespace Anto
             {
                 if(jugador.getPosition().y < enemigo.getPosition().y + 5)
                 {
+                    crashSound.play();
                     return 1;
                     
                 }
                 else if (jugador.getPosition().y > enemigo.getPosition().y + 5)
                 {
+                    crashSound.play();
                     _jugador->Morir();
                     t_lives.setString(std::to_string(_jugador->GetLives()));
                 }
@@ -279,6 +314,8 @@ namespace Anto
         
         void EstadoJuego::NuevaRonda()
         {
+            if(ronda>=2)
+                timeAppearTerodactile.restart();
             if(iterador < ronda*2 +1)
             {
                 if(_spawnTime.getElapsedTime().asSeconds() > SPAWN_ENEMY)
@@ -311,7 +348,7 @@ namespace Anto
         
         void EstadoJuego::SetJoustText()
         {
-            switch(rand()%7)
+            switch(rand()%8)
                 {
                     case 0:
                         prepareToJoust.setString("Prepare to joust");
@@ -340,6 +377,11 @@ namespace Anto
                     case 6:
                         prepareToJoust.setString("Don't forget to feed your animal");
                     break;
+                    
+                    case 7:
+                        prepareToJoust.setString("Be aware of the Terodactile");
+                    break;
+                    
                     
                 }
         }

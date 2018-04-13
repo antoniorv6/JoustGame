@@ -28,6 +28,10 @@ namespace Anto
         _iteradorAnimacion = 0;
         _iteradorMuerte = 0;
         
+        flapBuffer.loadFromFile(FLAP_SOUND_FILE);
+        flapSound.setBuffer(flapBuffer);
+        
+        
         _framesAnimacion.push_back(sf::IntRect(8, 35, 16, 20));
         _framesAnimacion.push_back(sf::IntRect(28, 35, 16, 20));
         _framesAnimacion.push_back(sf::IntRect(48, 35, 16, 20));
@@ -174,6 +178,7 @@ namespace Anto
     {
         if(_flap_refresh.getElapsedTime().asSeconds() > FLY_REFRESH)
         {
+            flapSound.play();
             _flap_timer.restart();
             _spriteprinc.setTextureRect(sf::IntRect(8, 14, 16, 13));
             _playerState = PLAYER_STATE_FLAP;
